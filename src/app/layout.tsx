@@ -1,4 +1,11 @@
 import "./globals.css";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  weight: ["400", "700", "900"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "CRUD - Next.js + TypeScript",
@@ -12,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={roboto.className}>{children}</body>
     </html>
   );
 }
