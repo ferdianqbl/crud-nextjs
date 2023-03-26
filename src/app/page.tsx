@@ -1,8 +1,9 @@
+"use client";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="w-[1000px] mx-auto py-20">
+    <div className="max-w-[1000px] mx-auto py-20">
       <Link
         href={"/create"}
         className="px-3 py-2 text-white transition duration-300 rounded bg-sky-700 hover:bg-sky-500"
