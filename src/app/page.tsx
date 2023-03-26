@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 
 export default function Home() {
@@ -18,7 +17,7 @@ export default function Home() {
             <p>Content</p>
             <div className="inline-flex gap-4 mt-4">
               <Link
-                href={"/update"}
+                href={`/update/${item}`}
                 className="text-sm transition duration-300 hover:font-semibold hover:text-sky-700"
               >
                 Update
