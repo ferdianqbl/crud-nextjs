@@ -9,13 +9,12 @@ export const GET = async (req: NextRequest) => {
 };
 
 export const POST = async (req: NextRequest) => {
-  console.log(req);
-  // const { title, content } = req;
-  // const data = await prisma.post.create({
-  //   data: {
-  //     title,
-  //     content,
-  //   },
-  // });
-  // return response.json({ data });
+  const { title, content } = await req.json();
+  const data = await prisma.post.create({
+    data: {
+      title,
+      content,
+    },
+  });
+  return response.json({ data });
 };

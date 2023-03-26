@@ -8,9 +8,21 @@ export default function Create() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
-    console.log({ title, content });
+
+    const res = await fetch("api/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        content,
+      }),
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
 
     router.push("/");
   };
