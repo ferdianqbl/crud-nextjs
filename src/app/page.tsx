@@ -1,6 +1,15 @@
 import Link from "next/link";
+import { Post } from "@prisma/client";
 
-export default function Home() {
+const getPosts = async () => {
+  const res = await fetch("http://localhost:3000/api/posts");
+  const posts = await res.json();
+  return posts.data;
+};
+
+export default async function Home() {
+  const posts: Post[] = await getPosts();
+
   return (
     <div className="max-w-[1000px] mx-auto py-20 px-10 md:px-4">
       <Link
@@ -11,13 +20,16 @@ export default function Home() {
       </Link>
 
       <div className="grid items-center grid-cols-1 gap-4 mt-8 md:grid-cols-2">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-          <div key={item} className="flex flex-col p-4 border rounded-md">
-            <h1>Title</h1>
-            <p>Content</p>
-            <div className="inline-flex gap-4 mt-4">
+        {posts.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-col gap-2 p-4 border rounded-md"
+          >
+            <h1 className="text-lg font-semibold">{item.title}</h1>
+            <p>{item.content}</p>
+            <div className="inline-flex gap-4 mt-2">
               <Link
-                href={`/update/${item}`}
+                href={`/update/${item.id}`}
                 className="text-sm transition duration-300 hover:font-semibold hover:text-sky-700"
               >
                 Update
