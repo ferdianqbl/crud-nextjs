@@ -10,11 +10,21 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
   const { title, content } = await req.json();
-  const data = await prisma.post.create({
+  await prisma.post.create({
     data: {
       title,
       content,
     },
   });
-  return response.json({ data });
+};
+
+export const DELETE = async (req: NextRequest) => {
+  const url = new URL(req.url);
+  const id = url.searchParams.get("id");
+  const data = await prisma.post.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+  // return response.json({ data });
 };

@@ -11,7 +11,7 @@ export default function Create() {
   const submitHandler = async (e: any) => {
     e.preventDefault();
 
-    const res = await fetch("api/posts", {
+    await fetch("api/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
