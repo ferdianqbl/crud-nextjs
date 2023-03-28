@@ -25,7 +25,7 @@ export default async function Home() {
       </Link>
 
       <div className="grid items-center grid-cols-1 gap-4 mt-8 md:grid-cols-2">
-        {posts.map((item) => (
+        {posts?.map((item) => (
           <Item key={item.id} post={item} />
         ))}
       </div>

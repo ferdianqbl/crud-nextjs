@@ -1,19 +1,45 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Update() {
+export default function Update({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
-    console.log({ title, content });
+
+    await fetch("/api/posts", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        content,
+        id: params.id,
+      }),
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
 
     router.push("/");
   };
+
+  const getData = async () => {
+    const response = await fetch(`/api/posts?id=${params.id}`);
+    const result = await response.json();
+
+    setTitle(result.data.title);
+    setContent(result.data.content);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="max-w-[1000px] mx-auto py-20">
@@ -54,7 +80,7 @@ export default function Update() {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Submit
+            Update
           </button>
         </form>
       </div>
